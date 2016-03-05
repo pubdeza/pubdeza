@@ -32,6 +32,28 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+
+# debug gems
+gem 'better_errors'
+gem 'binding_of_caller'
+gem 'pry-byebug'
+gem 'awesome_print'
+gem 'factory_girl_rails'
+gem 'pry'
+gem 'pry-doc'
+gem 'pry-rails'
+gem 'annotate'
+gem 'paranoia'
+
+# mailer gems
+gem 'letter_opener_web'
+gem 'letter_opener'
+
+# env
+gem 'dotenv-rails'
+
+
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -44,4 +66,3 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-
