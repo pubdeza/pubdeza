@@ -51,6 +51,8 @@ gem 'letter_opener'
 
 # env
 gem 'dotenv-rails'
+gem 'devise'
+gem 'omniauth-facebook'
 
 
 
