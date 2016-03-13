@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20160310145833) do
     t.datetime "locked_at"
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
+    t.string   "admin",                  limit: 255
     t.string   "username",               limit: 255
   end
 
