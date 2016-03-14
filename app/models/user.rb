@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :posts
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
-         :validatable, :confirmable, :authentication_keys => [:login]
+         :validatable, :authentication_keys => [:login]
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
@@ -16,6 +16,5 @@ class User < ActiveRecord::Base
       where(conditions).first
     end
   end
-
 
 end
