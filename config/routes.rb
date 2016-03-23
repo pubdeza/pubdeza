@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   resources :posts
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  # , :controllers => {
+  #   sessions: 'users/sessions',
+  #   registrations: 'users/registrations',
+  #   omniauth_callbacks: 'users/omniauth_callbacks'
+  # }
   get 'home/index'
   root "home#index"
   # The priority is based upon order of creation: first created -> highest priority.
@@ -57,8 +62,4 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-end
-
-Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET']
 end
