@@ -5,16 +5,20 @@ class User < ActiveRecord::Base
 
   has_many :posts
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable,
-         :validatable, :authentication_keys => [:login]
+         :recoverable, :rememberable, :trackable, :omniauthable,
+         :validatable, :authentication_keys => [:login], :omniauth_providers => [:facebook]
 
-  def self.find_first_by_auth_conditions(warden_conditions)
-    conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions).where(["username = :value OR lower(email) = lower(:value)", { :value => login }]).first
-    else
-      where(conditions).first
+  #authというパラメーターが渡ってくる。
+  def self.find_for_oauth(auth)
+    user = User.where(uid: auth.uid, provider: auth.provider).first
+    unless user
+      user = User.create(
+        uid: auth.uid,
+        provider: auth.provider,
+        name: auth.info.name,
+        email: auth.info.email,
+        password: Devise.friendly_token[8, 72])
     end
+    user
   end
-
 end
