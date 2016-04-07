@@ -1,1 +1,42 @@
-
+<div id="main">
+  <%= @posts.each_with_index do |post, i| %>
+    <div class="each_post">
+      <% if post.image? %>
+        <%= image_tag post.image.url %>
+      <% end %>
+      <h1>
+        <%= link_to post.title, post_path(post.id) %>
+        <!-- postの投稿者がcurrent_userと一致した場合 -->
+        <% if user_signed_in? %>
+          <% if current_user.id === post.user_id %>
+            <span><%= link_to "編集", edit_post_path(post.id) %></span>
+            <span><%= link_to "削除", post_path(post.id), method:"delete" %></span>
+          <% end %>
+        <% end %>
+      </h1>
+      <h2>
+        <% if post.user.image? %>
+          <%= image_tag post.user.image.thumb.url, :class => "icon" %>
+        <% else %>
+          <img class="icon" alt="No image" src="/assets/noimage.png" />
+      　<% end %>
+        <span class="auther-name"><%= post.user.username %></span>
+      </h2>
+      <% if user_signed_in? %>
+        <% if post.favorites.where(user_id: current_user.id).count == 0 %>
+          <%= form_tag favorites_path, method: 'post' do %>
+            <%= hidden_field_tag :post_id, post.id %>
+            <%= submit_tag "お気に入りに追加", class: "submit" %>
+            <span><%= post.favorites.count %></span>
+          <% end %>
+        <% else %>
+          <%= form_tag favorite_path(post.id), method: 'delete' do %>
+            <%= hidden_field_tag :post_id ,post.id %>
+            <%= submit_tag "お気に入りを解除", class: "submit" %>
+            <span><%= post.favorites.count %></span>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
