@@ -1,3 +1,63 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* --------------------
+  post#index
+-------------------- */
+
+.row {
+  hight: 342;
+  margin-bottom: 30px;
+}
+
+.each_post {
+  float: left;
+  width: 300px;
+  height: 300px;
+  padding: 20px 10px;
+  margin-right: 50px;
+  border: solid 1px #000000;
+  &:nth-child(3),
+  &:nth-child(6),
+  &:nth-child(9) {
+    margin-right: 0px;
+  }
+  h1 {
+    text-align: center;
+  }
+  h2 {
+    img.icon {
+      display: inline;
+      border-radius: 50%;
+      vertical-align: middle;
+    }
+    span.auther-name {
+    font-size: 16px;
+    }
+  }
+  > img {
+    display: block;
+    margin: 0 auto 30px;
+  }
+}
+
+/* --------------------
+  post#show
+-------------------- */
+
+.post_title {
+  margin-bottom: 10px;
+}
+
+.post_auther {
+  margin-bottom: 50px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #000000;
+  .icon {
+    display: inline;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    vertical-align: middle;
+  }
+}
