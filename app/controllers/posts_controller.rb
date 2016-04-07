@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :post_params, only: [:create, :update]
   # before_action :your_posts?, only: [:edit, :update, :destroy]
-  # before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @posts = Post.all
@@ -57,7 +57,7 @@ class PostsController < ApplicationController
  end
 
  def post_params
-    params.require(:post).permit(:title, :icatch, :contents, :user_id)
+    params.require(:post).permit(:title, :image, :contents, :user_id)
  end
 
 #  def your_posts?
