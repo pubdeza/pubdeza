@@ -27,14 +27,14 @@
           <%= form_tag favorites_path, method: 'post' do %>
             <%= hidden_field_tag :post_id, post.id %>
             <%= submit_tag "お気に入りに追加", class: "submit" %>
-            <span><%= post.favorites.count %></span>
           <% end %>
+          <span class="favorite-count"><%= post.favorites.count %></span>
         <% else %>
           <%= form_tag favorite_path(post.id), method: 'delete' do %>
             <%= hidden_field_tag :post_id ,post.id %>
             <%= submit_tag "お気に入りを解除", class: "submit" %>
-            <span><%= post.favorites.count %></span>
           <% end %>
+          <span class="favorite-count"><%= post.favorites.count %></span>
         <% end %>
       <% end %>
     </div>

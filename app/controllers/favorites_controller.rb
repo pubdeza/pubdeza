@@ -6,18 +6,26 @@ class FavoritesController < ApplicationController
   end
 
   def create
-    @favorite = Favorite.new(favorite_params)
-    @favorite.user_id = current_user.id
-    @favorite.save
-    if @favorite.save
+    @post = Post.find(params[:post_id])
+    if @post.favorites.where(user_id: current_user.id).count == 0
+      @favorite = Favorite.new(favorite_params)
+      @favorite.user_id = current_user.id
+      @favorite.save
       redirect_to(:back, notice: "お気に入りを追加しました")
+    else
+      redirect_to(:back, notice: "すでにお気に入りされています")
     end
   end
 
   def destroy
-    @favorite = current_user.favorites.find_by!(favorite_params)
-    @favorite.destroy
-    redirect_to(:back)
+    @post = Post.find(params[:post_id])
+    if @post.favorites.where(user_id: current_user.id).count == 1
+      @favorite = current_user.favorites.find_by!(favorite_params)
+      @favorite.destroy
+      redirect_to(:back)
+    else
+      redirect_to(:back, notice: "すでに削除されています")
+    end
   end
 
   private
