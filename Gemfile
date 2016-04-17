@@ -54,6 +54,11 @@ gem 'dotenv-rails'
 gem 'devise'
 gem 'omniauth-facebook'
 
+# image
+gem 'kaminari'
+gem 'carrierwave'
+gem 'rmagick'
+
 
 
 group :development, :test do

@@ -7,16 +7,24 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-   <% if user_signed_in? %> <!-- ログインしている場合 -->
-     Logged in as <strong><%= current_user.email %></strong>.
-     <%= link_to 'プロフィール変更', edit_user_registration_path %> |
-     <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-   <% else %><!-- ログインしていない場合 -->
-     <%= link_to "サインイン", new_user_registration_path %> |
-     <%= link_to "ログイン", new_user_session_path %>
-   <% end %>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-  <%= yield %>
+  <div id="wrapper">
+    <header>
+      <p>
+        <% if user_signed_in? %> <!-- ログインしている場合 -->
+          Logged in as <strong><%= current_user.username %></strong>.
+          <%= image_tag current_user.image.thumb.url, :style => "border-radius: 50%; vertical-align: middle; margin-right: 20px" %>
+          <%= link_to 'プロフィール変更', edit_user_registration_path %> |
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %> |
+          <%= link_to "お気に入り一覧", favorites_path %>
+        <% else %><!-- ログインしていない場合 -->
+          <%= link_to "サインイン", new_user_registration_path %> |
+          <%= link_to "ログイン", new_user_session_path %>
+        <% end %>
+      </p>
+    </header>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <%= yield %>
+  </div>
 </body>
 </html>
