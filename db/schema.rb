@@ -51,8 +51,6 @@ ActiveRecord::Schema.define(version: 20160406094411) do
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.string   "username",               limit: 255
-    t.string   "uid",                    limit: 255
-    t.string   "provider",               limit: 255
     t.string   "image",                  limit: 255
   end
 
