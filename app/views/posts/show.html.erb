@@ -13,5 +13,20 @@
 　<% end %>
   <span><%= @post.user.username %></span>
 </h3>
+<% if user_signed_in? %>
+  <% if @post.favorites.where(user_id: current_user.id).count == 0 %>
+    <%= form_tag favorites_path, method: 'post' do %>
+      <%= hidden_field_tag :post_id, @post.id %>
+      <%= submit_tag "お気に入りに追加", class: "submit" %>
+    <% end %>
+    <span class="favorite-count"><%= @post.favorites.count %></span>
+  <% else %>
+    <%= form_tag favorite_path(@post.id), method: 'delete' do %>
+      <%= hidden_field_tag :post_id , @post.id %>
+      <%= submit_tag "お気に入りを解除", class: "submit" %>
+    <% end %>
+    <span class="favorite-count"><%= @post.favorites.count %></span>
+  <% end %>
+<% end %>
 <p><%= image_tag @post.image.url %></p>
 <p><%= @post.contents %></p>

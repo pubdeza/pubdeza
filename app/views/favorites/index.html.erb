@@ -1,7 +1,7 @@
 <div id="main">
   <h1>お気に入り投稿一覧</h1>
   <ul class="favorites-list">
-    <%= @favorites.each_with_index do |favorite| %>
+    <%= @favorites.where(user_id: current_user.id).each_with_index do |favorite| %>
       <li><%= link_to favorite.post.title, post_path(favorite.post_id)  %></li>
     <% end %>
   </ul>
