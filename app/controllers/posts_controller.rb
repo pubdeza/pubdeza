@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :post_params, only: [:create, :update]
-  # before_action :your_posts?, only: [:edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
@@ -60,13 +60,11 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :image, :contents, :user_id)
  end
 
-#  def your_posts?
-#     @post = Post.find(params[:id])
-#     @user_id = @post.user_id
-#     if user_signed_in? && current_user.id != @user_id
-#       redirect_to :back, notice: "この投稿はあなたの投稿ではないため編集・削除できません。"
-#     elsif !user_signed_in?
-#       redirect_to new_user_session_path notice "ログインしてください"
-#     end
-#  end
+ def correct_user
+   @post = Post.find(params[:id])
+   user_id = @post.user_id
+   if user_id != current_user.id
+     redirect_to root_path, alert: '許可されていないページです'
+   end
+ end
 end
