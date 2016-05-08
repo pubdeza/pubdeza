@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :posts
   resources :favorites, :only => [:index, :create, :destroy]
+  resources :comments, :only => [:create, :update, :destroy]
   devise_for :users
   root "posts#index"
   # The priority is based upon order of creation: first created -> highest priority.

@@ -22,7 +22,7 @@
     <span class="favorite-count"><%= @post.favorites.count %></span>
   <% else %>
     <%= form_tag favorite_path(@post.id), method: 'delete' do %>
-      <%= hidden_field_tag :post_id , @post.id %>
+      <%= hidden_field_tag :post_id, @post.id %>
       <%= submit_tag "お気に入りを解除", class: "submit" %>
     <% end %>
     <span class="favorite-count"><%= @post.favorites.count %></span>
@@ -30,3 +30,14 @@
 <% end %>
 <p><%= image_tag @post.image.url %></p>
 <p><%= @post.contents %></p>
+<%= @comments.each do |comment| %>
+  <h2><%= comment.user.username %></h2>
+  <P><%= comment.contents %></p>
+<% end %>
+<% if user_signed_in? %>
+  <%= form_tag comments_path do %>
+    <%= hidden_field_tag :post_id , @post.id %>
+    <%= text_area_tag :contents %>
+    <%= submit_tag "コメントする", class: "submit" %>
+  <% end %>
+<% end %>
