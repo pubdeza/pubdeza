@@ -1,34 +1,25 @@
 <div id="main">
   <ul class="posts">
     <%= @posts.each_with_index do |post, i| %>
-      <li class="each_post">
-        <% if post.image? %>
-          <%= image_tag post.image.url %>
-        <% end %>
-        <h2>
-          <% if post.user.image? %>
-            <%= image_tag post.user.image.thumb.url, :class => "icon" %>
-          <% else %>
-            <img class="icon" alt="No image" src="/assets/noimage.png" />
-        　<% end %>
-          <span class="auther-name"><%= post.user.username %></span>
-        </h2>
-        <% if user_signed_in? %>
-          <% if post.favorites.where(user_id: current_user.id).count == 0 %>
-            <%= form_tag favorites_path, method: 'post' do %>
-              <%= hidden_field_tag :post_id, post.id %>
-              <%= submit_tag "お気に入りに追加", class: "submit" %>
-            <% end %>
-            <span class="favorite-count"><%= post.favorites.count %></span>
-          <% else %>
-            <%= form_tag favorite_path(post.id), method: 'delete' do %>
-              <%= hidden_field_tag :post_id ,post.id %>
-              <%= submit_tag "お気に入りを解除", class: "submit" %>
-            <% end %>
-            <span class="favorite-count"><%= post.favorites.count %></span>
+      <%= link_to post_path(post.id), :class => "post_link" do %>
+        <li class="each_post">
+          <% if post.image? %>
+            <%= image_tag post.image.url %>
           <% end %>
-        <% end %>
-      </li>
+          <h1><%= post.title%></h1>
+          <h2>
+            <% if post.user.image? %>
+              <%= image_tag post.user.image.thumb.url, :class => "icon" %>
+            <% else %>
+              <img class="icon" alt="No image" src="/assets/noimage.png" />
+          　<% end %>
+            <span class="auther-name"><%= post.user.username %></span>
+          </h2>
+
+          <span class="favorites-count">お気に入り：<%= post.favorites.count %></span>
+          <span class="comments-count">コメント数：<%= post.comments.count %></span>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 </div>

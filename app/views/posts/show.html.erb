@@ -12,27 +12,40 @@
     <img class="icon" alt="No image" src="/assets/noimage.png" />
 　<% end %>
   <span><%= @post.user.username %></span>
-</h3>
-<% if user_signed_in? %>
-  <% if @post.favorites.where(user_id: current_user.id).count == 0 %>
-    <%= form_tag favorites_path, method: 'post' do %>
-      <%= hidden_field_tag :post_id, @post.id %>
-      <%= submit_tag "お気に入りに追加", class: "submit" %>
+  <% if user_signed_in? %>
+    <% if @post.favorites.where(user_id: current_user.id).count == 0 %>
+      <div class="favorite-group">
+        <%= form_tag favorites_path, method: 'post', class: "favorite-btn" do %>
+          <%= hidden_field_tag :post_id, @post.id %>
+          <%= submit_tag "お気に入りに追加", class: "submit" %>
+        <% end %>
+        <span class="favorites-count"><%= @post.favorites.count %></span>
+      </div>
+    <% else %>
+      <div class="favorite-group">
+        <%= form_tag favorite_path(@post.id), method: 'delete', class: "favorite-btn" do %>
+          <%= hidden_field_tag :post_id, @post.id %>
+          <%= submit_tag "お気に入りを解除", class: "submit" %>
+        <% end %>
+        <span class="favorites-count"><%= @post.favorites.count %></span>
+      </div>
     <% end %>
-    <span class="favorite-count"><%= @post.favorites.count %></span>
-  <% else %>
-    <%= form_tag favorite_path(@post.id), method: 'delete' do %>
-      <%= hidden_field_tag :post_id, @post.id %>
-      <%= submit_tag "お気に入りを解除", class: "submit" %>
-    <% end %>
-    <span class="favorite-count"><%= @post.favorites.count %></span>
   <% end %>
-<% end %>
+</h3>
 <p><%= image_tag @post.image.url %></p>
-<p><%= @post.contents %></p>
+<p class="post_contents"><%= @post.contents %></p>
 <%= @comments.each do |comment| %>
   <h2><%= comment.user.username %></h2>
-  <P><%= comment.contents %></p>
+  <P>
+    <%= comment.contents %>
+    <!-- <% if user_signed_in? %>
+      <% if current_user.id === comment.user_id %>
+        <%= form_tag comment_path(comment.id), method: 'patch' do %>
+          <%= submit_tag "お気に入りを解除", class: "submit" %>
+        <% end %>
+      <% end %>
+    <% end %> -->
+  </p>
 <% end %>
 <% if user_signed_in? %>
   <%= form_tag comments_path do %>

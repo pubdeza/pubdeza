@@ -5,10 +5,8 @@
 /* --------------------
   post#index
 -------------------- */
-
-.row {
-  hight: 342;
-  margin-bottom: 30px;
+.post_link {
+  display: block;
 }
 
 .each_post {
@@ -42,7 +40,7 @@
     display: block;
     margin: 0 auto 30px;
   }
-  .favorite-count {
+  .favorites-count, .comments-count {
     font-weight: bold;
   }
 }
@@ -55,6 +53,11 @@
   margin-bottom: 10px;
 }
 
+.post_contents {
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid black;
+}
 .post_auther {
   margin-bottom: 50px;
   padding-bottom: 20px;
@@ -64,5 +67,15 @@
     border: 1px solid #fff;
     border-radius: 50%;
     vertical-align: middle;
+  }
+}
+
+.favorite-group {
+  .favorite-btn {
+    display: inline-block;
+    input[type="submit"]{
+      height: 100%;
+      display: block;  
+    }
   }
 }
