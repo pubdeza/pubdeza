@@ -6,6 +6,7 @@ class FavoritesController < ApplicationController
   end
 
   def create
+    # hidden_fieldの値を取得
     @post = Post.find(params[:post_id])
     if @post.favorites.where(user_id: current_user.id).count == 0
       @favorite = Favorite.new(favorite_params)

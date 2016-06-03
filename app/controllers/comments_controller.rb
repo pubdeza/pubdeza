@@ -13,14 +13,30 @@ class CommentsController < ApplicationController
   end
 
   def update
+    @comment = Comment.find(params[:id])
+    if current_user.id == @comment.user_id
+      @comment.update(comment_params)
+      @post = @comment.post_id
+    end
+    if @comment.save
+      redirect_to post_path(@post), notice: "コメントを編集しました"
+    else
+      render :show
+    end
   end
 
   def destroy
+    @comment = Comment.find(params[:id])
+    if current_user.id == @comment.user_id
+      @post = @comment.post_id
+      @comment.destroy
+      redirect_to post_path(@post), notice: "コメントを削除しました"
+    end
   end
 
   private
 
   def comment_params
-    params.permit(:post_id, :contents)
+    params.permit(:post_id, :comment_id, :contents)
   end
 end

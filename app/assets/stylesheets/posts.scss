@@ -3,6 +3,42 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 /* --------------------
+  common
+-------------------- */
+
+.display-none {
+  display: none;
+}
+
+.icon {
+  display: inline;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.mrb-20 {
+  margin-bottom: 20px;
+}
+
+input, button, textarea, select {
+	margin: 0;
+	padding: 0;
+	border-radius: 0;
+	outline: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+input[type = submit] {
+  background: #7ED321;
+  border: none;
+  padding: 10px;
+  color: #fff;
+}
+
+/* --------------------
   post#index
 -------------------- */
 .post_link {
@@ -54,19 +90,25 @@
 }
 
 .post_contents {
-  padding-bottom: 40px;
+  padding: 40px 0;
   margin-bottom: 40px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #000;
+  img {
+    display: block;
+    width: 100%;
+  }
 }
-.post_auther {
-  margin-bottom: 50px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #000000;
-  .icon {
-    display: inline;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    vertical-align: middle;
+
+.wrap {
+  display: flex!important;
+  flex-direction: row;
+  padding-bottom: 50px;
+  border-bottom: 1px solid #000;
+  .favorite-group {
+    width: 1000px;
+  }
+  .post_auther {
+    width: 400px;
   }
 }
 
@@ -75,7 +117,40 @@
     display: inline-block;
     input[type="submit"]{
       height: 100%;
-      display: block;  
+      display: block;
+    }
+  }
+}
+
+.comment-wrap {
+  border: 1px solid #000;
+  padding: 20px;
+  .each-comment {
+    display: -webkit-flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 50px;
+    background-color: #FFF;
+    .comment-left {
+      margin-right: 50px;
+      .icon {
+        display: block;
+        width: 50px;
+      }
+    }
+    .comment-right {
+
+    }
+    .comment-edit-form {
+      display: none;
+      textarea {
+        width: 300px;
+        font-size: 14px;
+      }
+      .submit {
+        display: block;
+      }
     }
   }
 }

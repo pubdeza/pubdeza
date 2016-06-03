@@ -5,17 +5,11 @@
     <span><%= link_to "削除", post_path, method:"delete" %></span>
   <% end %>
 </h1>
-<h3 class="post_auther">
-  <% if @post.user.image? %>
-    <%= image_tag @post.user.image.thumb.url, :class => "icon" %>
-  <% else %>
-    <img class="icon" alt="No image" src="/assets/noimage.png" />
-　<% end %>
-  <span><%= @post.user.username %></span>
+<div class="wrap clearfix">
   <% if user_signed_in? %>
     <% if @post.favorites.where(user_id: current_user.id).count == 0 %>
       <div class="favorite-group">
-        <%= form_tag favorites_path, method: 'post', class: "favorite-btn" do %>
+        <%= form_tag favorites_path(@post.id), method: 'post', class: "favorite-btn" do %>
           <%= hidden_field_tag :post_id, @post.id %>
           <%= submit_tag "お気に入りに追加", class: "submit" %>
         <% end %>
@@ -31,25 +25,52 @@
       </div>
     <% end %>
   <% end %>
-</h3>
-<p><%= image_tag @post.image.url %></p>
-<p class="post_contents"><%= @post.contents %></p>
+  <h3 class="post_auther">
+    <% if @post.user.image? %>
+      <%= image_tag @post.user.image.thumb.url, :class => "icon" %>
+    <% else %>
+      <img class="icon" alt="No image" src="/assets/noimage.png" />
+  　<% end %>
+    <span><%= @post.user.username %></span>
+  </h3>
+</div>
+<p class="post_contents">
+  <%= image_tag @post.image.url %>
+  <%= @post.contents %>
+</p>
+<h2 class="mrb-20"> - コメント一覧 - </h2>
+<div class="comment-wrap">
 <%= @comments.each do |comment| %>
-  <h2><%= comment.user.username %></h2>
-  <P>
-    <%= comment.contents %>
-    <!-- <% if user_signed_in? %>
-      <% if current_user.id === comment.user_id %>
-        <%= form_tag comment_path(comment.id), method: 'patch' do %>
-          <%= submit_tag "お気に入りを解除", class: "submit" %>
-        <% end %>
+  <div class="each-comment">
+    <div class="comment-left">
+      <% if comment.user.image? %>
+        <%= image_tag comment.user.image.thumb.url, :class => "icon" %>
+      <% else %>
+        <img class="icon" alt="No image" src="/assets/noimage.png">
       <% end %>
-    <% end %> -->
-  </p>
+    </div>
+    <div class="comment-right">
+      <h3 class="comment-author">
+        <%= comment.user.username %>
+        <% if user_signed_in? %>
+          <% if current_user.id === comment.user_id %>
+            <a href="#" class="form-edit-toggle">編集する</a>
+            <%= link_to "削除する", comment_path(comment.id), class: "comment-destroy-btn", method: 'delete', :confirm => 'Are you sure?' %>
+          <% end %>
+        <% end %>
+        <%= form_tag comment_path(comment.id), class: "comment-edit-form", method: 'patch' do %>
+          <%= text_area_tag :contents, comment.contents, :rows => 4 %>
+          <%= submit_tag "コメントを編集する", class: "submit" %>
+        <% end %>
+      </h3>
+      <p class="comment-contents"><%= comment.contents %></p>
+    </div>
+  </div>
 <% end %>
+</div>
 <% if user_signed_in? %>
   <%= form_tag comments_path do %>
-    <%= hidden_field_tag :post_id , @post.id %>
+    <%= hidden_field_tag :post_id, @post.id %>
     <%= text_area_tag :contents %>
     <%= submit_tag "コメントする", class: "submit" %>
   <% end %>
