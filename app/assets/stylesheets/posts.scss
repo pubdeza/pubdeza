@@ -21,6 +21,18 @@
   margin-bottom: 20px;
 }
 
+.mrb-30 {
+  margin-bottom: 30px;
+}
+
+.mrb-40 {
+  margin-bottom: 40px;
+}
+
+.mrb-50 {
+  margin-bottom: 50px;
+}
+
 input, button, textarea, select {
 	margin: 0;
 	padding: 0;
@@ -85,6 +97,12 @@ input[type = submit] {
   post#show
 -------------------- */
 
+.post-main {
+  @extend .mrb-20;
+  background-color: #fff;
+  padding: 10px;
+}
+
 .post_title {
   margin-bottom: 10px;
 }
@@ -102,45 +120,53 @@ input[type = submit] {
 .wrap {
   display: flex!important;
   flex-direction: row;
-  padding-bottom: 50px;
+  /*align-items: center;*/
+  padding-bottom: 10px;
   border-bottom: 1px solid #000;
-  .favorite-group {
-    width: 1000px;
+  .icon {
+    width: 20px;
   }
   .post_auther {
     width: 400px;
-  }
-}
-
-.favorite-group {
-  .favorite-btn {
-    display: inline-block;
-    input[type="submit"]{
-      height: 100%;
-      display: block;
+    .auther-icon {
+      width: 50px;
     }
+  }
+  .favorite-group {
+    margin-right: 20px;
+    .favorite-icon {
+      width: 20px;
+    }
+  }
+  .comments-count {
+    margin-right: 180px;
   }
 }
 
 .comment-wrap {
-  border: 1px solid #000;
-  padding: 20px;
+  @extend .mrb-40;
   .each-comment {
-    display: -webkit-flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
+    padding: 10px;
     margin-bottom: 50px;
     background-color: #FFF;
-    .comment-left {
-      margin-right: 50px;
-      .icon {
-        display: block;
-        width: 50px;
+    .comment-wrap {
+      display: -webkit-flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+      .comment-left {
+        margin-right: 50px;
+        .icon {
+          display: block;
+          width: 50px;
+        }
       }
-    }
-    .comment-right {
-
+      .comment-right {
+        botton {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
     }
     .comment-edit-form {
       display: none;
@@ -152,5 +178,12 @@ input[type = submit] {
         display: block;
       }
     }
+  }
+}
+.comment-form {
+  textarea {
+    display: block;
+    width: 100%;
+    @extend .mrb-20;
   }
 }
