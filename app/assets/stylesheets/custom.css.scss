@@ -25,6 +25,12 @@ li {
 
 header {
   margin-bottom: 40px;
+  .auther-icon {
+    width: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 60px;
+  }
 }
 
 #container {
@@ -33,12 +39,11 @@ header {
   margin: 0 auto;
   #main {
     float: left;
-    width: 600px;
-    padding: 10px;
+    width: 800px;
   }
   #sidebar {
     float: right;
-    width: 300px;
+    width: 150px;
     border: 1px solid #000;
   }
 }
@@ -51,27 +56,51 @@ header {
   display: none;
 }
 
+.float-none {
+  float: none!important;
+}
+
 .icon {
+  margin-right: 10px;
   display: inline;
-  border: 1px solid #fff;
-  border-radius: 50%;
+  width: 20px;
+  // border: 1px solid #fff;
+  // border-radius: 50%;
   vertical-align: middle;
 }
 
-.mrb-20 {
+// マージン・パディング系
+
+.mb-20 {
   margin-bottom: 20px;
 }
 
-.mrb-30 {
+.mb-30 {
   margin-bottom: 30px;
 }
 
-.mrb-40 {
+.mb-40 {
   margin-bottom: 40px;
 }
 
-.mrb-50 {
+.mb-50 {
   margin-bottom: 50px;
+}
+
+.pl-10 {
+  padding-left: 20px;
+}
+
+.pl-20 {
+  padding-left: 20px;
+}
+
+.al_center {
+  text-align: center;
+}
+
+.border {
+  border: solid 1px #000;
 }
 
 input, button, textarea, select {

@@ -12,7 +12,7 @@
       <% if @post.favorites.where(user_id: current_user.id).count == 0 %>
         <div class="favorite-group">
           <%= link_to favorites_path(post_id: @post), method:"post" do %>
-            <%= image_tag "Star.png" %>
+            <%= image_tag "Star.png", class: "favorite-icon" %>
           <% end %>
           <span class="favorites-count"><%= @post.favorites.count %></span>
         </div>
@@ -45,31 +45,29 @@
 <div class="comment-wrap">
 <%= @comments.each do |comment| %>
   <div class="each-comment">
-    <div class="comment-wrap">
-      <div class="comment-left">
-        <% if comment.user.image? %>
-          <%= image_tag comment.user.image.thumb.url, :class => "icon" %>
-        <% else %>
-          <img class="icon" alt="No image" src="/assets/noimage.png">
+    <div class="comment">
+      <% if comment.user.image? %>
+        <%= image_tag comment.user.image.thumb.url, :class => "icon" %>
+      <% else %>
+        <img class="icon" alt="No image" src="/assets/noimage.png">
+      <% end %>
+      <h3 class="comment-author">
+        <%= comment.user.username %>
+        <% if user_signed_in? %>
+          <% if current_user.id === comment.user_id %>
+            <botton href="" class="form-edit-toggle">編集する</botton>
+            <%= link_to "削除する", comment_path(comment.id), class: "comment-destroy-btn", method: 'delete', :confirm => 'Are you sure?' %>
+          <% end %>
         <% end %>
-      </div>
-      <div class="comment-right">
-        <h3 class="comment-author">
-          <%= comment.user.username %>
-          <% if user_signed_in? %>
-            <% if current_user.id === comment.user_id %>
-              <botton href="" class="form-edit-toggle">編集する</botton>
-              <%= link_to "削除する", comment_path(comment.id), class: "comment-destroy-btn", method: 'delete', :confirm => 'Are you sure?' %>
-            <% end %>
-          <% end %>
-          <%= form_tag comment_path(comment.id), class: "comment-edit-form", method: 'patch' do %>
-            <%= text_area_tag :contents, comment.contents, :rows => 4 %>
-            <%= submit_tag "コメントを編集する", class: "submit" %>
-          <% end %>
-        </h3>
-      </div>
+        <%= form_tag comment_path(comment.id), class: "comment-edit-form", method: 'patch' do %>
+          <%= text_area_tag :contents, comment.contents, :rows => 4 %>
+          <%= submit_tag "コメントを編集する", class: "submit" %>
+        <% end %>
+      </h3>
     </div>
-    <p class="comment-contents"><%= comment.contents %></p>
+    <div class="comment-wrap">
+      <p class="comment-contents"><%= comment.contents %></p>
+    </div>
   </div>
 <% end %>
 </div>
