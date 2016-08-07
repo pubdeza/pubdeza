@@ -6,6 +6,7 @@ class FavoritesController < ApplicationController
   end
 
   def create
+    # hidden_fieldの値を取得
     @post = Post.find(params[:post_id])
     if @post.favorites.where(user_id: current_user.id).count == 0
       @favorite = Favorite.new(favorite_params)
@@ -22,7 +23,7 @@ class FavoritesController < ApplicationController
     if @post.favorites.where(user_id: current_user.id).count == 1
       @favorite = current_user.favorites.find_by!(favorite_params)
       @favorite.destroy
-      redirect_to(:back)
+      redirect_to(:back, notice: "お気に入りを解除しました")
     else
       redirect_to(:back, notice: "すでに削除されています")
     end

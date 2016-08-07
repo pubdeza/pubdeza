@@ -1,0 +1,48 @@
+<div id="main">
+  <div class="mb-20">
+    <h2 class="border al_center mb-20">トータルベスト</h2>
+    <%= link_to post_path(@best_post), :class => "post_link" do %>
+      <%= @best_post.title %>
+    <% end %>
+  </div>
+  <div class="mb-20">
+    <h2 class="border al_center mb-20">過去3か月分のマンスリーベスト</h2>
+    <% thisYear = Date.today.year %>
+    <% num = 1 %>
+    <% while num <= 3 do %>
+      <% target_month = correct_date(num) %>
+      <!-- 12月、11月、10月の場合は前の年の記事になるので、-1する。 -->
+      <% thisYear = Date.today.year %>
+      <% if target_month >= 10 %>
+        <% target_year = thisYear - 1 %>
+      <% else %>
+         <% target_year = thisYear %>
+      <% end %>
+      <% monthly_post = Favorite.by_year(target_year).by_month(target_month).group(:post_id).order("count_all desc").count.first.first %>
+      <li class="each_post_wrap">
+        <h3 class="mb-20"><%= target_year %>年 <%= target_month %>月</h3>
+        <%= link_to post_path(monthly_post), :class => "post_link" do %>
+          <div class="each_post float-none">
+            <% if @posts.find(monthly_post).image? %>
+              <%= image_tag @posts.find(monthly_post).image.url %>
+            <% else %>
+              <div class="noimage"></div>
+            <% end %>
+            <h1><%= @posts.find(monthly_post).title %></h1>
+            <h2>
+              <% if @posts.find(monthly_post).user.image? %>
+                <%= image_tag @posts.find(monthly_post).thumb.url, :class => "icon" %>
+              <% else %>
+                <img class="icon" alt="No image" src="/assets/noimage.png" />
+            　<% end %>
+              <span class="auther-name"><%= @posts.find(monthly_post).user.username %></span>
+            </h2>
+            <span class="favorites-count"><%= image_tag "Star.png", class: "icon favorite-icon" %><%= @posts.find(monthly_post).favorites.count %></span>
+            <span class="comments-count"><%= image_tag "Group 7.png", class: "icon comment-icon" %><%= @posts.find(monthly_post).comments.count %></span>
+          </div>
+        <% end %>
+      </li>
+      <% num = num + 1 %>
+    <% end %>
+  </div>
+</div>

@@ -12,7 +12,7 @@
       <p>
         <% if user_signed_in? %> <!-- ログインしている場合 -->
           Logged in as <strong><%= current_user.username %></strong>.
-          <%= image_tag current_user.image.thumb.url, :style => "border-radius: 50%; vertical-align: middle; margin-right: 20px" %>
+          <%= image_tag current_user.image.thumb.url, :class => "auther-icon" %>
           <%= link_to 'プロフィール変更', edit_user_registration_path %> |
           <%= link_to "ログアウト", destroy_user_session_path, method: :delete %> |
           <%= link_to "お気に入り一覧", favorites_path %>
@@ -24,7 +24,23 @@
     </header>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <div id="container">
+      <div id="main">
+        <%= yield %>
+      </div>
+      <div id="sidebar">
+        <p>
+          サイドバーが入ります。<br />
+          サイドバーが入ります。<br />
+          サイドバーが入ります。<br />
+          サイドバーが入ります。<br />
+          サイドバーが入ります。<br />
+          サイドバーが入ります。<br />
+          サイドバーが入ります。<br />
+          サイドバーが入ります。<br />
+        </p>
+      </div>
+    </div>
   </div>
 </body>
 </html>
