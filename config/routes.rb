@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'users/show'
+
   get 'archive/best_like'
 
   get 'archive/recommend'

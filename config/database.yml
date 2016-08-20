@@ -15,7 +15,8 @@ default: &default
   pool: 5
   username: root
   password: root
-  socket: /tmp/mysql.sock
+  socket: <%= ENV['PUBDEZA_DEV_SOCKET'] %>
+  # socket: /tmp/mysql.sock
 
 development:
   <<: *default
